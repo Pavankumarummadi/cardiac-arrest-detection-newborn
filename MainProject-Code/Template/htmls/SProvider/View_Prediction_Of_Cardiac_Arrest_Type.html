@@ -1,0 +1,56 @@
+{% extends 'SProvider/design1.html' %}
+{% block researchblock %}
+<div class="content-card">
+	<h2 class="register-label mb-4"
+		style="color: var(--primary-brown); font-weight: 700; border-bottom: 2px solid var(--accent-gold); display: inline-block; padding-bottom: 5px;">
+		Cardiac Arrest Detection Details
+	</h2>
+
+	<div class="premium-table-container">
+		<table class="premium-table">
+			<thead>
+				<tr>
+					<th>Fid</th>
+					<th>Age (Days)</th>
+					<th>Sex</th>
+					<th>Chest Pain</th>
+					<th>BP / Heart Rate</th>
+					<th>ECG</th>
+					<th>MaxHR</th>
+					<th>Angina</th>
+					<th>Oldpeak</th>
+					<th>Slope</th>
+					<th>slp</th>
+					<th>caa</th>
+					<th>thall</th>
+					<th>Prediction</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for object in list_objects %}
+				<tr>
+					<td>{{object.Fid}}</td>
+					<td>{{object.Age_In_Days}}</td>
+					<td>{{object.Sex}}</td>
+					<td>{{object.ChestPainType}}</td>
+					<td>{{object.RestingBP}}</td>
+					<td>{{object.RestingECG}}</td>
+					<td>{{object.MaxHR}}</td>
+					<td>{{object.ExerciseAngina}}</td>
+					<td>{{object.Oldpeak}}</td>
+					<td>{{object.ST_Slope}}</td>
+					<td>{{object.slp}}</td>
+					<td>{{object.caa}}</td>
+					<td>{{object.thall}}</td>
+					<td style="font-weight: 700; color: var(--primary-brown);">{{object.Prediction}}</td>
+				</tr>
+				{% empty %}
+				<tr>
+					<td colspan="14" class="text-center py-5 no-users-message">No detection data available.</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}

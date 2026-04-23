@@ -1,0 +1,158 @@
+{% extends 'SProvider/design1.html' %}
+{% block researchblock %}
+
+<style>
+     .chart-page-container {
+          display: flex;
+          gap: 30px;
+          align-items: flex-start;
+          padding-top: 20px;
+     }
+
+     .chart-sidebar {
+          flex: 0 0 280px;
+          background: rgba(255, 255, 255, 0.9);
+          padding: 30px;
+          border-radius: 20px;
+          box-shadow: var(--shadow);
+          border: 1px solid rgba(255, 255, 255, 0.4);
+     }
+
+     .chart-sidebar h3 {
+          color: var(--primary-brown);
+          font-weight: 700;
+          font-size: 1.2rem;
+          margin-bottom: 25px;
+          border-bottom: 2px solid var(--accent-gold);
+          padding-bottom: 15px;
+          display: block;
+     }
+
+     .chart-sidebar ul {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+     }
+
+     .chart-sidebar li {
+          margin-bottom: 12px;
+     }
+
+     .chart-sidebar a {
+          color: var(--secondary-brown);
+          text-decoration: none !important;
+          font-weight: 600;
+          transition: var(--transition);
+          display: block;
+          padding: 12px 18px;
+          border-radius: 12px;
+          background: rgba(255, 255, 255, 0.5);
+          border: 1px solid rgba(141, 110, 99, 0.1);
+     }
+
+     .chart-sidebar a:hover {
+          background: var(--beige-light);
+          color: var(--primary-brown);
+          transform: translateX(8px);
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+     }
+
+     .chart-sidebar a.active {
+          background: var(--primary-brown);
+          color: white;
+          box-shadow: 0 4px 15px rgba(93, 64, 55, 0.3);
+     }
+
+     #chartContainer {
+          flex: 1;
+          height: 550px;
+          background: rgba(255, 255, 255, 0.95);
+          border-radius: 25px;
+          padding: 25px;
+          box-shadow: var(--shadow);
+          border: 1px solid rgba(255, 255, 255, 0.5);
+     }
+</style>
+
+<div class="chart-page-container">
+     <div class="chart-sidebar">
+          <h3>Ratio Analysis</h3>
+          <ul>
+               <li><a href="{% url 'charts' 'pie' %}" class="{% if chart_type == 'pie' %}active{% endif %}"><i
+                              class="fas fa-chart-pie mr-2"></i> Pie Chart</a></li>
+               <li><a href="{% url 'charts' 'line' %}" class="{% if chart_type == 'line' %}active{% endif %}"><i
+                              class="fas fa-chart-line mr-2"></i> Line Chart</a></li>
+               <li><a href="{% url 'charts' 'spline' %}" class="{% if chart_type == 'spline' %}active{% endif %}"><i
+                              class="fas fa-chart-area mr-2"></i> Spline Chart</a></li>
+          </ul>
+     </div>
+
+     <div id="chartContainer"></div>
+</div>
+
+<script id="chart-data" type="application/json">
+[
+    {% for o in form %}
+    {"y": {{ o.dcount }}, "label": "{{ o.names }}"}{% if not forloop.last %},{% endif %}
+    {% endfor %}
+]
+</script>
+
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script>
+     window.onload = function () {
+          let rawData = document.getElementById('chart-data').textContent;
+          let dataPoints = [];
+          try {
+               dataPoints = JSON.parse(rawData);
+          } catch (e) {
+               dataPoints = [{ y: 0, label: "No Data Available" }];
+          }
+
+          if (dataPoints.length === 0) {
+               dataPoints = [{ y: 0, label: "No Data Available" }];
+          }
+
+          var chart = new CanvasJS.Chart("chartContainer", {
+               animationEnabled: true,
+               theme: "light2",
+               exportEnabled: true,
+               title: {
+                    text: "{% if chart_type == 'line' %}Arrest Ratio Results (Line Graph){% elif chart_type == 'pie' %}Arrest Ratio Results (Pie Distribution){% else %}Arrest Ratio Results (Spline Graph){% endif %}",
+                    fontFamily: "Outfit",
+                    fontWeight: "bold",
+                    fontColor: "#5D4037",
+                    padding: 20
+               },
+               subtitles: [{
+                    text: "Statistical distribution of cardiac arrest predictions",
+                    fontFamily: "Outfit",
+                    fontColor: "#8D6E63"
+               }],
+               axisY: {
+                    title: "Ratio (%)",
+                    includeZero: true,
+                    suffix: "%",
+                    gridColor: "#F3E5F5",
+                    labelFontFamily: "Outfit"
+               },
+               axisX: {
+                    labelFontFamily: "Outfit",
+                    labelAngle: -20
+               },
+               data: [{
+                    type: "{{ chart_type }}",
+                    yValueFormatString: "##0.00\"%\"",
+                    indexLabel: "{y}",
+                    indexLabelFontFamily: "Outfit",
+                    indexLabelFontWeight: "bold",
+                    indexLabelPlacement: "outside",
+                    markerSize: 10,
+                    dataPoints: dataPoints
+               }]
+          });
+          chart.render();
+     }
+</script>
+
+{% endblock %}

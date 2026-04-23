@@ -1,0 +1,46 @@
+{% extends 'SProvider/design1.html' %}
+{% block researchblock %}
+<div class="content-card">
+	<h2 class="register-label mb-4"
+		style="color: var(--primary-brown); font-weight: 700; border-bottom: 2px solid var(--accent-gold); display: inline-block; padding-bottom: 5px;">
+		Cardiac Arrest Type Prediction Ratio
+	</h2>
+
+	<div class="premium-table-container">
+		<table class="premium-table">
+			<thead>
+				<tr>
+					<th>Cardiac Arrest Category</th>
+					<th>Calculated Ratio (%)</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for object in objs %}
+				<tr>
+					<td style="font-weight: 600;">{{object.names}}</td>
+					<td>
+						<div class="d-flex align-items-center">
+							<span class="mr-3 font-weight-bold"
+								style="color: var(--primary-brown); width: 60px;">{{object.ratio|floatformat:2}}%</span>
+							<div class="progress flex-grow-1"
+								style="height: 10px; border-radius: 5px; background-color: #E3D5CA;">
+								<div class="progress-bar" role="progressbar"
+									style="--p: {{ object.ratio }}%; width: var(--p); background-color: var(--accent-gold);"
+									aria-valuenow="{{ object.ratio }}" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+						</div>
+					</td>
+				</tr>
+				{% empty %}
+				<tr>
+					<td colspan="2" class="text-center py-5 no-users-message">
+						No prediction data found. Ratios will be calculated once remote users start using the detection
+						tool.
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Login | Cardiac Arrest Detection</title>
+	<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<style>
+		:root {
+			--primary-brown: #5D4037;
+			--secondary-brown: #8D6E63;
+			--beige-bg: #FAF3E0;
+			--beige-light: #FFF8E1;
+			--accent-gold: #C6A664;
+			--text-dark: #3E2723;
+			--text-white: #FFFFFF;
+			--shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+			--transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+		}
+
+		body {
+			background-image: url("{% static 'bg.jpg' %}");
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			font-family: 'Outfit', sans-serif;
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--text-dark);
+			margin: 0;
+			overflow-x: hidden;
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+				transform: translateY(30px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		.login-container {
+			max-width: 800px;
+			width: 90%;
+			background: rgba(255, 255, 255, 0.75);
+			backdrop-filter: blur(10px);
+			border-radius: 25px;
+			padding: 35px;
+			box-shadow: var(--shadow);
+			border: 1px solid rgba(255, 255, 255, 0.4);
+			animation: fadeIn 1s ease-out forwards;
+		}
+
+		#title {
+			color: var(--primary-brown);
+			font-weight: 700;
+			margin-bottom: 20px;
+			font-size: 1.5rem;
+			line-height: 1.2;
+		}
+
+		.subtitle {
+			color: var(--secondary-brown);
+			font-size: 0.95rem;
+			margin-bottom: 30px;
+		}
+
+		.login-image {
+			width: 65%;
+			margin: 0 auto;
+			display: block;
+			border-radius: 20px;
+			box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+			transition: var(--transition);
+			border: 4px solid rgba(255, 255, 255, 0.5);
+		}
+
+		.login-image:hover {
+			transform: scale(1.02);
+		}
+
+		.form-group input {
+			width: 100%;
+			padding: 15px 20px;
+			border-radius: 12px;
+			border: 2px solid #D7CCC8;
+			background: rgba(255, 255, 255, 0.9);
+			transition: var(--transition);
+			outline: none;
+			font-size: 1rem;
+		}
+
+		.form-group input:focus {
+			border-color: var(--accent-gold);
+			box-shadow: 0 0 10px rgba(198, 166, 100, 0.2);
+		}
+
+		.btn-custom {
+			background: var(--primary-brown);
+			color: var(--text-white);
+			border: none;
+			padding: 15px 30px;
+			border-radius: 12px;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			transition: var(--transition);
+			width: 100%;
+			margin-top: 10px;
+			cursor: pointer;
+			box-shadow: 0 4px 15px rgba(93, 64, 55, 0.3);
+		}
+
+		.btn-custom:hover {
+			background: var(--secondary-brown);
+			transform: translateY(-5px);
+			box-shadow: 0 8px 25px rgba(93, 64, 55, 0.4);
+			color: white;
+		}
+
+		.btn-outline {
+			background: transparent;
+			color: var(--primary-brown);
+			border: 2px solid var(--primary-brown);
+			padding: 12px 20px;
+			border-radius: 12px;
+			font-weight: 600;
+			transition: var(--transition);
+			margin: 5px;
+			text-decoration: none;
+			display: inline-block;
+		}
+
+		.btn-outline:hover {
+			background: var(--primary-brown);
+			color: var(--text-white);
+			transform: translateY(-3px);
+			text-decoration: none;
+		}
+
+		.login-label {
+			color: var(--primary-brown);
+			font-weight: 600;
+			margin: 20px 0 10px;
+			font-size: 1.1rem;
+		}
+
+		hr {
+			border-top: 1px solid #D7CCC8;
+			margin: 20px 0;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="login-container">
+		<h2 class="text-center" id="title">A Machine Learning Approach for Early Detection of Cardiac Arrest</h2>
+		<p class="text-center subtitle">Newborn Babies in the Cardiac Intensive Care Unit</p>
+		<hr>
+		<div class="row align-items-center">
+			<div class="col-md-6 d-none d-md-block">
+				<img src="{% static 'login.jpg' %}" alt="Login Banner" class="login-image">
+			</div>
+			<div class="col-md-6">
+				<form method="POST" role="form">
+					{% csrf_token %}
+					<p class="login-label">Login to your account</p>
+					<div class="form-group">
+						<input type="text" name="username" placeholder="Username" required>
+					</div>
+					<div class="form-group">
+						<input type="password" name="password" placeholder="Password" required>
+					</div>
+					<div>
+						<button type="submit" name="submit1" class="btn-custom">Sign In</button>
+					</div>
+					<hr>
+					<div class="text-center">
+						<p class="login-label">Quick Access</p>
+						<a href="{% url 'serviceproviderlogin' %}" class="btn-outline">Service Provider</a>
+						<a href="{% url 'Register1' %}" class="btn-outline">Register Now</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

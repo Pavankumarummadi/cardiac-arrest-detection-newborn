@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Service Provider</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    :root {
+      --primary-brown: #5D4037;
+      --secondary-brown: #8D6E63;
+      --beige-bg: #FAF3E0;
+      --beige-light: #FFF8E1;
+      --accent-gold: #C6A664;
+      --text-dark: #3E2723;
+      --text-white: #FFFFFF;
+      --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body {
+      background-image: url("{% static 'bg.jpg' %}");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      font-family: 'Outfit', sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInDown {
+      from {
+        transform: translateY(-100%);
+      }
+
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    .header-container {
+      padding: 50px 20px;
+      text-align: center;
+      animation: fadeInUp 0.8s ease-out;
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(5px);
+      margin-bottom: 0;
+    }
+
+    h1 {
+      color: var(--primary-brown);
+      font-weight: 700;
+      font-size: 2.2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      line-height: 1.3;
+      padding-top: 10px;
+    }
+
+    .topnav {
+      background: var(--primary-brown);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      animation: slideInDown 0.6s ease-out;
+      padding: 5px 0;
+    }
+
+    .topnav a {
+      color: var(--beige-light);
+      padding: 12px 15px;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .topnav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 3px;
+      background: var(--accent-gold);
+      transition: var(--transition);
+      transform: translateX(-50%);
+    }
+
+    .topnav a:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-white);
+      text-decoration: none;
+    }
+
+    .topnav a:hover::after {
+      width: 100%;
+    }
+
+    .topnav a.active {
+      background: var(--secondary-brown);
+      color: var(--text-white);
+    }
+
+    .mainholder {
+      max-width: 1400px;
+      margin: 30px auto;
+      padding: 0 20px;
+      animation: fadeInUp 1s ease-out;
+      min-height: 60vh;
+    }
+
+    /* Common Card Style */
+    .content-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      margin-bottom: 30px;
+    }
+
+    /* Premium Table Styling */
+    .premium-table-container {
+      margin-top: 20px;
+      overflow-x: auto;
+    }
+
+    .premium-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .premium-table th {
+      background-color: var(--primary-brown);
+      color: var(--beige-light);
+      padding: 15px;
+      text-align: left;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    .premium-table td {
+      padding: 12px 15px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      background-color: rgba(255, 255, 255, 0.9);
+      color: var(--text-dark);
+      font-size: 14px;
+      transition: var(--transition);
+    }
+
+    .premium-table tr:hover td {
+      background-color: var(--beige-light);
+      color: var(--primary-brown);
+    }
+
+    .no-users-message {
+      color: var(--secondary-brown);
+      font-style: italic;
+      padding: 40px !important;
+      text-align: center;
+    }
+  </style>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+
+  <div class="header-container">
+    <h1 class="style1">A Machine Learning Approach Using Statistical Models for Early Detection of Cardiac Arrest in
+      Newborn Babies</h1>
+  </div>
+
+  <div class="topnav">
+
+    <a href="{% url 'train_model' %}">Browse and Train & Test</a>
+    <a href="{% url 'likeschart' 'bar' %}">Trained Accuracy (Bar)</a>
+    <a href="{% url 'charts1' 'line' %}">Accuracy Results</a>
+    <a href="{% url 'View_Prediction_Of_Cardiac_Arrest_Type' %}">View Predictions</a>
+    <a href="{% url 'View_Prediction_Of_Cardiac_Arrest_Type_Ratio' %}">Prediction Ratio</a>
+    <a href="{% url 'Download_Predicted_DataSets' %}">Download Datasets</a>
+    <a href="{% url 'charts' 'line' %}">Ratio Results</a>
+    <a href="{% url 'View_Remote_Users' %}">Remote Users</a>
+    <a href="{% url 'login'  %}">Logout</a>
+
+  </div>
+
+
+
+  <div class="mainholder">
+    {% block researchblock %}
+    {% endblock %}
+  </div>
+</body>
+
+</html>

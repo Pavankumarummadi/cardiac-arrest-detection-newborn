@@ -1,0 +1,40 @@
+{% extends 'SProvider/design1.html' %}
+{% block researchblock %}
+<div class="content-card">
+	<h2 class="register-label mb-4"
+		style="color: var(--primary-brown); font-weight: 700; border-bottom: 2px solid var(--accent-gold); display: inline-block; padding-bottom: 5px;">
+		Registered Remote Users
+	</h2>
+
+	<div class="premium-table-container">
+		<table class="premium-table">
+			<thead>
+				<tr>
+					<th>Username</th>
+					<th>Email Address</th>
+					<th>Mobile Number</th>
+					<th>Country</th>
+					<th>State</th>
+					<th>City</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for o in objects %}
+				<tr>
+					<td style="font-weight: 600;">{{o.username}}</td>
+					<td>{{o.email}}</td>
+					<td>{{o.phoneno}}</td>
+					<td>{{o.country}}</td>
+					<td>{{o.state}}</td>
+					<td>{{o.city}}</td>
+				</tr>
+				{% empty %}
+				<tr>
+					<td colspan="6" class="text-center py-5 no-users-message">No users found in the system.</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}

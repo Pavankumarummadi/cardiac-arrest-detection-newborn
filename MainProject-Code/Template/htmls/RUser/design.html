@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Remote User</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        :root {
+            --primary-brown: #5D4037;
+            --secondary-brown: #8D6E63;
+            --beige-bg: #FAF3E0;
+            --beige-light: #FFF8E1;
+            --accent-gold: #C6A664;
+            --text-dark: #3E2723;
+            --text-white: #FFFFFF;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            background-image: url("{% static 'bg.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-100%);
+            }
+
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .header-container {
+            padding: 40px 20px;
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(5px);
+        }
+
+        h1 {
+            color: var(--primary-brown);
+            font-weight: 700;
+            font-size: 2.2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            line-height: 1.2;
+        }
+
+        .topnav {
+            background: var(--primary-brown);
+            display: flex;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: slideInDown 0.6s ease-out;
+        }
+
+        .topnav a {
+            color: var(--beige-light);
+            padding: 18px 25px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .topnav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: var(--accent-gold);
+            transition: var(--transition);
+            transform: translateX(-50%);
+        }
+
+        .topnav a:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-white);
+            text-decoration: none;
+        }
+
+        .topnav a:hover::after {
+            width: 100%;
+        }
+
+        .topnav a.active {
+            background: var(--secondary-brown);
+            color: var(--text-white);
+        }
+
+        .mainholder {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            animation: fadeInUp 1s ease-out;
+            min-height: 60vh;
+        }
+
+        /* Common Button Styles */
+        .btn {
+            background: var(--primary-brown);
+            color: var(--text-white) !important;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            background: var(--secondary-brown);
+        }
+    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+
+    <div class="header-container">
+        <h1 class="style1">A Machine Learning Approach Using Statistical Models for Early Detection of Cardiac Arrest in
+            Newborn Babies</h1>
+    </div>
+
+    <div class="topnav">
+        <a href="{% url 'Predict_Cardiac_Arrest_Type' %}">PREDICT DETECTION OF CARDIAC ARREST</a>
+        <a href="{% url 'ViewYourProfile' %}">VIEW YOUR PROFILE</a>
+        <a href="{% url 'login' %}">LOGOUT</a>
+    </div>
+
+    <div class="mainholder">
+        {% block userblock %}
+        {% endblock %}
+    </div>
+</body>
+
+</html>

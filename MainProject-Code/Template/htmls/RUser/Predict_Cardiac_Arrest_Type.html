@@ -1,0 +1,227 @@
+{% extends 'RUser/design.html' %}
+{% block userblock %}
+<div class="content-card">
+  <h2 class="register-label mb-4"
+    style="color: var(--primary-brown); font-weight: 700; border-bottom: 2px solid var(--accent-gold); display: inline-block; padding-bottom: 5px;">
+    Cardiac Arrest Type Prediction
+  </h2>
+
+  <form role="form" method="POST" class="mt-4">
+    {% csrf_token %}
+    <p style="color: var(--secondary-brown); font-weight: 600; margin-bottom: 30px;">
+      <i class="fas fa-microscope mr-2"></i> Clinical parameters based on healthcare data sets:
+    </p>
+
+    <!-- Row 1: Vertical Multi-column (Basic Info) -->
+    <div class="form-section mb-4">
+      <h5 class="section-title">Patient Identification & Demographics</h5>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label><i class="fas fa-id-card-alt mr-1"></i> Fid</label>
+            <input type="text" name="Fid" class="form-control" placeholder="ID Number" required>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label><i class="fas fa-calendar-day mr-1"></i> Age (Days)</label>
+            <input type="text" name="Age_In_Days" class="form-control" placeholder="Newborn age" required>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label><i class="fas fa-venus-mars mr-1"></i> Sex</label>
+            <select name="Sex" class="form-control" required>
+              <option value="">--- Select ---</option>
+              <option value="M">Male</option>
+              <option value="F">Female</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2: Horizontal Layout (Primary Metrics) -->
+    <div class="form-section mb-4">
+      <h5 class="section-title">Primary Clinical Metrics</h5>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group row no-gutters align-items-center">
+            <label class="col-sm-4 col-form-label pr-2">Chest Pain Type</label>
+            <div class="col-sm-8">
+              <input type="text" name="ChestPainType" class="form-control" placeholder="e.g., ASY, NAP" required>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group row no-gutters align-items-center">
+            <label class="col-sm-4 col-form-label pr-2">Resting BP</label>
+            <div class="col-sm-8">
+              <input type="text" name="RestingBP" class="form-control" placeholder="Heart Rate Value" required>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 3: Vertical Multi-column (Advanced Metrics) -->
+    <div class="form-section mb-4">
+      <h5 class="section-title">Diagnostic Results</h5>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>Resting ECG</label>
+            <input type="text" name="RestingECG" class="form-control" placeholder="ECG reading" required>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>Max HR</label>
+            <input type="text" name="MaxHR" class="form-control" placeholder="Max Heart Rate" required>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>Exercise Angina</label>
+            <input type="text" name="ExerciseAngina" class="form-control" placeholder="Y / N" required>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 4: Horizontal Layout (ST Segment Data) -->
+    <div class="form-section mb-4">
+      <h5 class="section-title">ST Segment Analysis</h5>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group row no-gutters align-items-center">
+            <label class="col-sm-3 col-form-label">Oldpeak</label>
+            <div class="col-sm-9">
+              <input type="text" name="Oldpeak" class="form-control" placeholder="Oldpeak value" required>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group row no-gutters align-items-center">
+            <label class="col-sm-3 col-form-label">ST Slope</label>
+            <div class="col-sm-9">
+              <input type="text" name="ST_Slope" class="form-control" placeholder="Slope type" required>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 5: Vertical Multi-column (Final Parameters) -->
+    <div class="form-section mb-4">
+      <h5 class="section-title">Specialized Clinical Data</h5>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>slp</label>
+            <input type="text" name="slp" class="form-control" placeholder="slp value" required>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>caa</label>
+            <input type="text" name="caa" class="form-control" placeholder="caa value" required>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>thall</label>
+            <input type="text" name="thall" class="form-control" placeholder="thall value" required>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-5 text-center">
+      <button type="submit" name="submit" class="btn btn-custom px-5 py-3 shadow-lg">
+        <i class="fas fa-stethoscope mr-2"></i> Run Detection Algorithm
+      </button>
+    </div>
+  </form>
+
+  {% if objs %}
+  <div class="mt-5 p-4 text-center"
+    style="background: var(--beige-light); border-radius: 15px; border: 2px dashed var(--accent-gold); animation: fadeInUp 0.5s ease-out;">
+    <h3 style="color: var(--primary-brown); font-weight: 700;">Prediction Result</h3>
+    <div style="font-size: 2rem; color: #d32f2f; font-weight: 800; margin-top: 10px;">
+      {{objs}}
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+<style>
+  .form-section {
+    background: rgba(255, 253, 248, 0.5);
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid rgba(141, 110, 99, 0.1);
+  }
+
+  .section-title {
+    color: var(--primary-brown);
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--accent-gold);
+    padding-left: 12px;
+  }
+
+  .form-group label {
+    color: var(--primary-brown);
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 0.9rem;
+  }
+
+  .col-form-label {
+    color: var(--primary-brown);
+    font-weight: 600;
+  }
+
+  .form-control {
+    border-radius: 10px !important;
+    border: 1px solid #D7CCC8 !important;
+    padding: 12px 15px !important;
+    height: auto !important;
+  }
+
+  .form-control:focus {
+    border-color: var(--accent-gold) !important;
+    box-shadow: 0 0 0 0.2rem rgba(198, 166, 100, 0.25) !important;
+  }
+
+  .btn-custom {
+    background: var(--primary-brown);
+    color: white !important;
+    border-radius: 50px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: var(--transition);
+  }
+
+  .btn-custom:hover {
+    background: var(--secondary-brown);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .content-card {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+</style>
+{% endblock %}
