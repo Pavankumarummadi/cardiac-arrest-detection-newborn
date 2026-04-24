@@ -1,3 +1,4 @@
+setuptools>=70.0.0
 asgiref==3.8.1
 contourpy==1.1.1
 cycler==0.12.1
@@ -12,7 +13,7 @@ matplotlib==3.7.5
 numpy==1.26.4
 openpyxl==3.1.5
 packaging==26.0
-pandas==1.5.3
+pandas==2.2.2
 pillow==10.4.0
 pyparsing==3.1.4
 python-dateutil==2.9.0.post0
