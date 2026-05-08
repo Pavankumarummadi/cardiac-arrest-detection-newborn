@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>InfantHeart AI | Remote User</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        :root {
+            --primary-deep: #0B2447;
+            --primary-blue: #19376D;
+            --accent-blue: #576CBC;
+            --soft-blue: #A5D7E8;
+            --text-dark: #1A1A1A;
+            --text-light: #F8F9FA;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            background-image: url("{% static 'newborn_bg.png' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Overlay for better readability */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(11, 36, 71, 0.4) 0%, rgba(25, 55, 109, 0.2) 100%);
+            z-index: -1;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.98) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        @keyframes navSlide {
+            from {
+                transform: translateY(-100%);
+            }
+
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .header-container {
+            padding: 50px 20px;
+            text-align: center;
+            animation: fadeInScale 0.8s ease-out;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--glass-border);
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: var(--text-light);
+            font-weight: 700;
+            font-size: 2.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            line-height: 1.2;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            letter-spacing: -0.5px;
+        }
+
+        .topnav {
+            background: var(--primary-deep);
+            display: flex;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: navSlide 0.6s ease-out;
+            padding: 0 10%;
+        }
+
+        .topnav a {
+            color: var(--text-light);
+            padding: 20px 30px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: var(--transition);
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .topnav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 4px;
+            background: var(--soft-blue);
+            transition: var(--transition);
+            transform: translateX(-50%);
+            border-radius: 4px 4px 0 0;
+        }
+
+        .topnav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--soft-blue);
+            text-decoration: none;
+        }
+
+        .topnav a:hover::after {
+            width: 80%;
+        }
+
+        .topnav a.active {
+            background: var(--primary-blue);
+            color: var(--soft-blue);
+        }
+
+        .mainholder {
+            max-width: 1200px;
+            width: 95%;
+            margin: 40px auto;
+            padding: 40px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow);
+            animation: fadeInScale 1s ease-out;
+            flex-grow: 1;
+            margin-bottom: 60px;
+        }
+
+        /* Modern Form & Content Styles */
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-custom {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-deep) 100%);
+            color: white !important;
+            border: none;
+            padding: 14px 35px;
+            border-radius: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(11, 36, 71, 0.3);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-custom:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(11, 36, 71, 0.4);
+            filter: brightness(1.1);
+        }
+
+        input,
+        select,
+        textarea {
+            border-radius: 12px !important;
+            border: 2px solid #E0E0E0 !important;
+            padding: 12px 20px !important;
+            transition: var(--transition) !important;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: var(--primary-blue) !important;
+            box-shadow: 0 0 12px rgba(25, 55, 109, 0.1) !important;
+            outline: none;
+        }
+
+        .footer {
+            margin-top: auto;
+            padding: 30px;
+            text-align: center;
+            color: var(--text-light);
+            background: rgba(11, 36, 71, 0.9);
+            width: 100%;
+        }
+
+        /* Status colors */
+        .text-primary {
+            color: var(--primary-blue) !important;
+        }
+
+        .bg-primary {
+            background-color: var(--primary-blue) !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header-container">
+        <h1>InfantHeart AI</h1>
+        <p style="color: rgba(255,255,255,0.8); font-size: 1.1rem; margin-top: 10px;">Advanced Cardiac Arrest Detection
+            for Newborns</p>
+    </div>
+
+    <div class="topnav">
+        <a href="{% url 'Predict_Cardiac_Arrest_Type' %}"><i class="fas fa-heartbeat"></i> PREDICT ARREST</a>
+        <a href="{% url 'ViewYourProfile' %}"><i class="fas fa-user-md"></i> VIEW PROFILE</a>
+        <a href="{% url 'login' %}"><i class="fas fa-sign-out-alt"></i> LOGOUT</a>
+    </div>
+
+    <div class="mainholder">
+        {% block userblock %}
+        {% endblock %}
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 InfantHeart AI System &bull; Statistical Models for Newborn Healthcare</p>
+    </div>
+</body>
+
+</html>

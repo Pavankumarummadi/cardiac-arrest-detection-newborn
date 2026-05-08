@@ -1,0 +1,335 @@
+{% extends 'RUser/design.html' %}
+{% block userblock %}
+<div class="content-card-blue mx-auto" style="max-width: 900px;">
+  <div class="d-flex align-items-center mb-4 pb-3 border-bottom-glass">
+    <div class="icon-box-white mr-3">
+      <i class="fas fa-heartbeat fa-lg"></i>
+    </div>
+    <div>
+      <h2 class="mb-0" style="color: white; font-weight: 800; letter-spacing: -1px;">Vitals Diagnostic Terminal</h2>
+      <p class="mb-0" style="color: rgba(255,255,255,0.7);">Enter neonatal telemetry for predictive risk analysis</p>
+    </div>
+  </div>
+
+  <form role="form" method="POST" class="mt-4">
+    {% csrf_token %}
+
+    <!-- Row 1: Basic Info -->
+    <div class="form-section-glass mb-4">
+      <h5 class="section-title-white">Patient Demographics</h5>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="label-bold"><i class="fas fa-hashtag mr-1"></i> Patient ID / Fid</label>
+            <input type="text" name="Fid" class="form-control-glass" placeholder="e.g. 1024" required>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="label-bold"><i class="fas fa-calendar-day mr-1"></i> Age (Days)</label>
+            <input type="number" name="Age_In_Days" class="form-control-glass" placeholder="0 - 365" min="0" max="365"
+              required>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="label-bold"><i class="fas fa-venus-mars mr-1"></i> Genetic Sex</label>
+            <select name="Sex" class="form-control-glass" required>
+              <option value="">--- Select ---</option>
+              <option value="M">Male (M)</option>
+              <option value="F">Female (F)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2: Metrics -->
+    <div class="form-section-glass mb-4">
+      <h5 class="section-title-white">Clinical Parameters</h5>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="label-bold">Chest Pain Classification</label>
+            <select name="ChestPainType" class="form-control-glass" required>
+              <option value="">--- Select Type ---</option>
+              <option value="TA">Typical Angina (TA)</option>
+              <option value="ATA">Atypical Angina (ATA)</option>
+              <option value="NAP">Non-Anginal Pain (NAP)</option>
+              <option value="ASY">Asymptomatic (ASY)</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="label-bold">Resting Blood Pressure</label>
+            <input type="number" name="RestingBP" class="form-control-glass" placeholder="Value (mmHg) [40-220]"
+              min="40" max="220" required>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 3: Diagnostic -->
+    <div class="form-section-glass mb-4">
+      <h5 class="section-title-white">Electrophysiology Metrics</h5>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="label-bold">Resting ECG Results</label>
+            <select name="RestingECG" class="form-control-glass" required>
+              <option value="">--- Select Result ---</option>
+              <option value="Normal">Normal</option>
+              <option value="ST">ST-T Wave Abnormality</option>
+              <option value="LVH">Left Ventricular Hypertrophy</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="label-bold">Max Heart Rate Achieved</label>
+            <input type="number" name="MaxHR" class="form-control-glass" placeholder="60 - 220 bpm" min="50" max="250"
+              required>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="label-bold">Exercise Angina</label>
+            <select name="ExerciseAngina" class="form-control-glass" required>
+              <option value="">--- Choose ---</option>
+              <option value="Y">Positive (Yes)</option>
+              <option value="N">Negative (No)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 4: ST Segment & Advanced Metrics -->
+    <div class="form-section-glass mb-4">
+      <h5 class="section-title-white">ST Segment & Vascular Analysis</h5>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="label-bold">Oldpeak (ST Depression)</label>
+            <input type="number" step="0.1" name="Oldpeak" class="form-control-glass" placeholder="Value e.g. 1.0"
+              min="-5" max="10" required>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="label-bold">Peak Exercise ST Slope</label>
+            <select name="ST_Slope" class="form-control-glass" required>
+              <option value="">--- Select Slope ---</option>
+              <option value="Up">Upsloping</option>
+              <option value="Flat">Flat</option>
+              <option value="Down">Downsloping</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="label-bold">Slope (slp)</label>
+            <input type="number" name="slp" class="form-control-glass" placeholder="Value (0-2)" min="0" max="2"
+              required>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="label-bold">Major Vessels (caa)</label>
+            <input type="number" name="caa" class="form-control-glass" placeholder="Count (0-4)" min="0" max="4"
+              required>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="label-bold">Thalassemia (thall)</label>
+            <input type="number" name="thall" class="form-control-glass" placeholder="Value (0-3)" min="0" max="3"
+              required>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-5 text-center">
+      <button type="submit" name="submit" class="btn-predict-premium py-3 px-5">
+        <i class="fas fa-microscope mr-2"></i> INITIATE NEURAL SCAN
+      </button>
+    </div>
+  </form>
+
+  {% if objs %}
+  <div class="mt-5 p-5 text-center result-box-premium">
+    <div class="badge badge-pill badge-primary mb-3 px-4 py-2"
+      style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3);">SCAN COMPLETE</div>
+    <h3 style="color: white; font-weight: 800; letter-spacing: 1px;">DIAGNOSTIC PROBABILITY</h3>
+    <div class="result-glow mt-2">
+      {{objs}}
+    </div>
+    <p class="mt-4 small" style="color: rgba(255,255,255,0.7);">* Results generated via InfantHeart AI Neural Framework
+    </p>
+  </div>
+  {% endif %}
+</div>
+
+<style>
+  .content-card-blue {
+    background: linear-gradient(135deg, var(--primary-deep) 0%, var(--primary-blue) 100%);
+    border-radius: 40px;
+    padding: 50px;
+    box-shadow: 0 30px 60px rgba(11, 36, 71, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: fadeInScale 0.8s ease-out;
+  }
+
+  .border-bottom-glass {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .icon-box-white {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .form-section-glass {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: var(--transition);
+  }
+
+  .form-section-glass:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .section-title-white {
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title-white::after {
+    content: '';
+    flex-grow: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .label-bold {
+    color: white;
+    font-weight: 800;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    display: block;
+    opacity: 0.9;
+  }
+
+  .form-control-glass {
+    width: 100%;
+    padding: 14px 20px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    transition: var(--transition);
+    outline: none;
+  }
+
+  .form-control-glass::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .form-control-glass:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: white;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  }
+
+  select.form-control-glass {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+  }
+
+  select.form-control-glass option {
+    background: var(--primary-deep);
+    color: white;
+  }
+
+  .btn-predict-premium {
+    background: white;
+    color: var(--primary-deep);
+    font-weight: 900;
+    border: none;
+    border-radius: 18px;
+    letter-spacing: 1px;
+    transition: var(--transition);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn-predict-premium:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(255, 255, 255, 0.2);
+    background: #f8f9fa;
+  }
+
+  .result-box-premium {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: slideUp 0.6s ease-out;
+  }
+
+  .result-glow {
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: white;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.98) translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+</style>
+{% endblock %}

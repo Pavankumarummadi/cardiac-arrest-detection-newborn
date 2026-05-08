@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Provider Login | InfantHeart AI</title>
+	<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<style>
+		:root {
+			--primary-deep: #0B2447;
+			--primary-blue: #19376D;
+			--accent-blue: #576CBC;
+			--soft-blue: #A5D7E8;
+			--text-dark: #1A1A1A;
+			--text-light: #F8F9FA;
+			--glass-bg: rgba(255, 255, 255, 0.85);
+			--glass-border: rgba(255, 255, 255, 0.5);
+			--shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+			--transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+		}
+
+		body {
+			background-image: url("{% static 'newborn_bg.png' %}");
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+			font-family: 'Outfit', sans-serif;
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--text-dark);
+			margin: 0;
+			overflow-x: hidden;
+		}
+
+		body::before {
+			content: '';
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: linear-gradient(135deg, rgba(11, 36, 71, 0.6) 0%, rgba(25, 55, 109, 0.3) 100%);
+			z-index: -1;
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+				transform: translateY(30px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		.login-container {
+			max-width: 900px;
+			width: 90%;
+			background: var(--glass-bg);
+			backdrop-filter: blur(15px);
+			border-radius: 30px;
+			padding: 45px;
+			box-shadow: var(--shadow);
+			border: 1px solid var(--glass-border);
+			animation: fadeIn 1s ease-out forwards;
+		}
+
+		#title {
+			color: var(--primary-deep);
+			font-weight: 700;
+			margin-bottom: 5px;
+			font-size: 2.2rem;
+			letter-spacing: -1px;
+		}
+
+		.subtitle {
+			color: var(--primary-blue);
+			font-size: 1rem;
+			margin-bottom: 35px;
+			font-weight: 500;
+			opacity: 0.8;
+		}
+
+		.animation-container {
+			background: radial-gradient(circle, var(--primary-blue) 0%, var(--primary-deep) 100%);
+			border-radius: 25px;
+			height: 420px;
+			position: relative;
+			overflow: hidden;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+			border: 1px solid var(--glass-border);
+		}
+
+		.pulse-circle {
+			position: absolute;
+			width: 150px;
+			height: 150px;
+			border-radius: 50%;
+			background: rgba(165, 215, 232, 0.2);
+			animation: pulse 2s infinite;
+		}
+
+		.pulse-circle-2 {
+			position: absolute;
+			width: 150px;
+			height: 150px;
+			border-radius: 50%;
+			background: rgba(165, 215, 232, 0.1);
+			animation: pulse 2s infinite 1s;
+		}
+
+		@keyframes pulse {
+			0% {
+				transform: scale(1);
+				opacity: 0.8;
+			}
+
+			100% {
+				transform: scale(3);
+				opacity: 0;
+			}
+		}
+
+		.heartbeat-icon {
+			font-size: 6rem;
+			color: var(--soft-blue);
+			z-index: 2;
+			animation: heart-pulse 1.2s infinite alternate cubic-bezier(0.4, 0, 0.6, 1);
+		}
+
+		@keyframes heart-pulse {
+			0% {
+				transform: scale(1);
+				filter: drop-shadow(0 0 5px var(--soft-blue));
+			}
+
+			15% {
+				transform: scale(1.15);
+				filter: drop-shadow(0 0 15px var(--soft-blue));
+			}
+
+			30% {
+				transform: scale(1);
+			}
+
+			45% {
+				transform: scale(1.2);
+				filter: drop-shadow(0 0 25px var(--soft-blue));
+			}
+
+			100% {
+				transform: scale(1);
+			}
+		}
+
+		.ekg-container {
+			position: absolute;
+			bottom: 0;
+			width: 200%;
+			height: 100px;
+			opacity: 0.4;
+			animation: ekg-scroll 5s linear infinite;
+		}
+
+		.ekg-svg {
+			width: 100%;
+			height: 100%;
+			fill: none;
+			stroke: #00f2ff;
+			stroke-width: 2;
+		}
+
+		@keyframes ekg-scroll {
+			from {
+				transform: translateX(0);
+			}
+
+			to {
+				transform: translateX(-50%);
+			}
+		}
+
+		.animation-overlay {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			padding: 25px;
+			background: linear-gradient(transparent, rgba(11, 36, 71, 0.9));
+			color: white;
+			text-align: center;
+			backdrop-filter: blur(2px);
+		}
+
+		.animation-overlay h5 {
+			margin: 0;
+			font-weight: 700;
+			letter-spacing: 2px;
+			text-transform: uppercase;
+			font-size: 1.1rem;
+			color: var(--soft-blue);
+		}
+
+		.form-group {
+			margin-bottom: 25px;
+		}
+
+		.form-control-modern {
+			width: 100%;
+			padding: 15px 25px;
+			border-radius: 15px;
+			border: 2px solid #E0E0E0;
+			background: rgba(255, 255, 255, 0.9);
+			transition: var(--transition);
+			outline: none;
+			font-size: 1rem;
+		}
+
+		.form-control-modern:focus {
+			border-color: var(--primary-blue);
+			box-shadow: 0 0 15px rgba(25, 55, 109, 0.1);
+		}
+
+		.btn-custom {
+			background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-deep) 100%);
+			color: var(--text-light);
+			border: none;
+			padding: 16px 30px;
+			border-radius: 15px;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 1.5px;
+			transition: var(--transition);
+			width: 100%;
+			margin-top: 10px;
+			cursor: pointer;
+			box-shadow: 0 8px 20px rgba(11, 36, 71, 0.3);
+		}
+
+		.btn-custom:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 12px 30px rgba(11, 36, 71, 0.4);
+			filter: brightness(1.1);
+			color: white;
+		}
+
+		.btn-back {
+			background: transparent;
+			color: var(--primary-blue);
+			border: 2px solid var(--primary-blue);
+			padding: 12px 25px;
+			border-radius: 12px;
+			font-weight: 600;
+			transition: var(--transition);
+			width: 100%;
+			text-decoration: none;
+			display: inline-block;
+			text-align: center;
+		}
+
+		.btn-back:hover {
+			background: var(--primary-blue);
+			color: white;
+			transform: translateX(-5px);
+			text-decoration: none;
+		}
+
+		.login-label {
+			color: var(--primary-deep);
+			font-weight: 700;
+			margin: 25px 0 15px;
+			font-size: 1.3rem;
+			display: flex;
+			align-items: center;
+			gap: 12px;
+		}
+
+		hr {
+			border-top: 1px solid rgba(0, 0, 0, 0.1);
+			margin: 30px 0;
+		}
+
+		.icon-box {
+			width: 50px;
+			height: 50px;
+			background: linear-gradient(135deg, var(--soft-blue) 0%, var(--accent-blue) 100%);
+			border-radius: 12px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			box-shadow: 0 4px 15px rgba(87, 108, 188, 0.3);
+		}
+
+		.portal-header {
+			border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+			padding-bottom: 20px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="login-container">
+		<div class="d-flex align-items-center mb-5 portal-header">
+			<div class="icon-box mr-3"><i class="fas fa-user-md fa-lg"></i></div>
+			<div class="text-left">
+				<h2 id="title" class="mb-0">Provider Portal</h2>
+				<p class="subtitle mb-0">Secure Terminal for InfantHeart AI Clinical Staff</p>
+			</div>
+		</div>
+
+		<div class="row align-items-center">
+			<div class="col-md-5 d-none d-md-block">
+				<div class="animation-container">
+					<div class="pulse-circle"></div>
+					<div class="pulse-circle-2"></div>
+					<div class="heartbeat-icon">
+						<i class="fas fa-stethoscope"></i>
+					</div>
+					<div class="ekg-container">
+						<svg viewBox="0 0 200 100" class="ekg-svg" preserveAspectRatio="none">
+							<polyline
+								points="0,50 20,50 25,40 30,60 35,50 50,50 55,20 60,80 65,50 80,50 85,45 90,55 95,50 110,50 115,40 120,60 125,50 140,50 145,20 150,80 155,50 170,50 175,45 180,55 185,50 200,50" />
+						</svg>
+					</div>
+					<div class="animation-overlay">
+						<h5>Clinical Intake</h5>
+						<p class="mb-0 small opacity-75">Secure Provider Access Active</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-7">
+				<form method="POST" role="form">
+					{% csrf_token %}
+					<p class="login-label"><i class="fas fa-lock"></i> Provider Auth</p>
+
+					<div class="form-group">
+						<input type="text" name="username" class="form-control-modern" placeholder="Access Username"
+							required>
+					</div>
+					<div class="form-group">
+						<input type="password" name="password" class="form-control-modern" placeholder="Access Password"
+							required>
+					</div>
+
+					<button type="submit" name="submit1" class="btn-custom">Login to Terminal <i
+							class="fas fa-terminal ml-2"></i></button>
+
+					<hr>
+
+					<div class="text-center">
+						<a href="{% url 'login' %}" class="btn-back"><i class="fas fa-arrow-left mr-2"></i> User Login
+							Portal</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+{% extends 'SProvider/design1.html' %}
+{% block researchblock %}
+<div class="content-card">
+	<h2 class="register-label mb-4"
+		style="color: var(--primary-deep); font-weight: 700; border-bottom: 3px solid var(--accent-blue); display: inline-block; padding-bottom: 8px;">
+		<i class="fas fa-users-medical mr-2"></i> Authorized Project Personnel
+	</h2>
+
+	<div class="premium-table-container">
+		<table class="premium-table">
+			<thead>
+				<tr>
+					<th><i class="fas fa-user-circle mr-2"></i> Username</th>
+					<th><i class="fas fa-envelope mr-2"></i> Email Identifier</th>
+					<th><i class="fas fa-phone-alt mr-2"></i> Contact</th>
+					<th><i class="fas fa-globe-americas mr-2"></i> Country</th>
+					<th><i class="fas fa-map-marker-alt mr-2"></i> State / Province</th>
+					<th><i class="fas fa-city mr-2"></i> City</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for o in objects %}
+				<tr>
+					<td style="font-weight: 700; color: var(--primary-blue);">{{o.username}}</td>
+					<td>{{o.email}}</td>
+					<td>{{o.phoneno}}</td>
+					<td>{{o.country}}</td>
+					<td>{{o.state}}</td>
+					<td>{{o.city}}</td>
+				</tr>
+				{% empty %}
+				<tr>
+					<td colspan="6" class="text-center py-5 no-users-message">
+						<i class="fas fa-user-slash fa-3x mb-3 text-muted"></i>
+						<p>Zero instances found in the remote user repository.</p>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}

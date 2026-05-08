@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>InfantHeart AI | Service Provider</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    :root {
+      --primary-deep: #0B2447;
+      --primary-blue: #19376D;
+      --accent-blue: #576CBC;
+      --soft-blue: #A5D7E8;
+      --text-dark: #1A1A1A;
+      --text-light: #F8F9FA;
+      --glass-bg: rgba(255, 255, 255, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.4);
+      --shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+      --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body {
+      background-image: url("{% static 'newborn_bg.png' %}");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      font-family: 'Outfit', sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text-dark);
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(11, 36, 71, 0.4) 0%, rgba(25, 55, 109, 0.2) 100%);
+      z-index: -1;
+    }
+
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.98) translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    @keyframes navSlide {
+      from {
+        transform: translateY(-100%);
+      }
+
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    .header-container {
+      padding: 50px 20px;
+      text-align: center;
+      animation: fadeInScale 0.8s ease-out;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      border-bottom: 2px solid var(--glass-border);
+    }
+
+    h1 {
+      color: var(--text-light);
+      font-weight: 700;
+      font-size: 2.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      line-height: 1.3;
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .topnav {
+      background: var(--primary-deep);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      animation: navSlide 0.6s ease-out;
+      padding: 5px 20px;
+    }
+
+    .topnav a {
+      color: var(--text-light);
+      padding: 15px 20px;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: var(--transition);
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .topnav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 4px;
+      background: var(--soft-blue);
+      transition: var(--transition);
+      transform: translateX(-50%);
+      border-radius: 4px 4px 0 0;
+    }
+
+    .topnav a:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--soft-blue);
+      text-decoration: none;
+    }
+
+    .topnav a:hover::after {
+      width: 80%;
+    }
+
+    .topnav a.active {
+      background: var(--primary-blue);
+      color: var(--soft-blue);
+    }
+
+    .mainholder {
+      max-width: 1450px;
+      width: 98%;
+      margin: 40px auto;
+      padding: 40px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      border-radius: 35px;
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow);
+      animation: fadeInScale 1s ease-out;
+      flex-grow: 1;
+      margin-bottom: 60px;
+    }
+
+    /* Common Card Style */
+    .content-card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 25px;
+      padding: 35px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      border: 1px solid #E0E0E0;
+      margin-bottom: 40px;
+      transition: var(--transition);
+    }
+
+    .content-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Premium Table Styling */
+    .premium-table-container {
+      margin-top: 25px;
+      overflow-x: auto;
+      border-radius: 20px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .premium-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+
+    .premium-table th {
+      background-color: var(--primary-blue);
+      color: white;
+      padding: 18px 15px;
+      text-align: left;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    .premium-table td {
+      padding: 15px;
+      border-bottom: 1px solid #EDEDED;
+      background-color: white;
+      color: var(--text-dark);
+      font-size: 14px;
+      transition: var(--transition);
+    }
+
+    .premium-table tr:last-child td:first-child {
+      border-bottom-left-radius: 20px;
+    }
+
+    .premium-table tr:last-child td:last-child {
+      border-bottom-right-radius: 20px;
+    }
+
+    .premium-table tr:hover td {
+      background-color: #F0F4FF;
+      color: var(--primary-deep);
+    }
+
+    .footer {
+      margin-top: auto;
+      padding: 40px;
+      text-align: center;
+      color: var(--text-light);
+      background: rgba(11, 36, 71, 0.9);
+      width: 100%;
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-provider {
+      background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-deep) 100%);
+      color: white !important;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: 600;
+      transition: var(--transition);
+      border: none;
+    }
+
+    .btn-provider:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.2);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header-container">
+    <h1>InfantHeart AI Provider Dashboard</h1>
+    <p style="color: rgba(255,255,255,0.8); font-size: 1.1rem; margin-top: 10px;">Clinical Management & Statistical
+      Analytics</p>
+  </div>
+
+  <div class="topnav">
+    <a href="{% url 'train_model' %}"><i class="fas fa-microchip"></i> Train & Test</a>
+    <a href="{% url 'likeschart' 'bar' %}"><i class="fas fa-chart-bar"></i> Accuracy Bar</a>
+    <a href="{% url 'charts1' 'line' %}"><i class="fas fa-chart-line"></i> Results</a>
+    <a href="{% url 'View_Prediction_Of_Cardiac_Arrest_Type' %}"><i class="fas fa-list-alt"></i> Predictions</a>
+    <a href="{% url 'View_Prediction_Of_Cardiac_Arrest_Type_Ratio' %}"><i class="fas fa-percentage"></i> Ratio</a>
+    <a href="{% url 'Download_Predicted_DataSets' %}"><i class="fas fa-download"></i> Datasets</a>
+    <a href="{% url 'charts' 'line' %}"><i class="fas fa-project-diagram"></i> System Ratio</a>
+    <a href="{% url 'View_Remote_Users' %}"><i class="fas fa-users"></i> Users</a>
+    <a href="{% url 'login' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </div>
+
+  <div class="mainholder">
+    {% block researchblock %}
+    {% endblock %}
+  </div>
+
+  <div class="footer">
+    <p>&copy; 2026 InfantHeart AI Provider System &bull; Advanced Medical Intelligence Terminal</p>
+  </div>
+</body>
+
+</html>

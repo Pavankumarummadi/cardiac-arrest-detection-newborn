@@ -1,0 +1,69 @@
+{% extends 'SProvider/design1.html' %}
+{% block researchblock %}
+<div class="content-card mx-auto" style="max-width: 800px;">
+	<div class="text-center mb-5">
+		<div class="icon-box-large mx-auto mb-4">
+			<i class="fas fa-file-export fa-3x"></i>
+		</div>
+		<h2 style="color: var(--primary-deep); font-weight: 800; letter-spacing: -1px;">Data Export Portal</h2>
+		<p class="text-muted">Generate and retrieve high-precision statistical datasets for external clinical audit.</p>
+	</div>
+
+	<div class="p-5 export-section">
+		<div class="row align-items-center">
+			<div class="col-md-7">
+				<h4 style="color: var(--primary-blue); font-weight: 700;">Detection Analytics Dataset</h4>
+				<p class="small text-muted mb-0">Contains all processed neonatal cardiac arrest predictions, clinical
+					parameters, and model performance metadata in Excel format.</p>
+			</div>
+			<div class="col-md-5 text-right">
+				<form role="form" method="POST">
+					{% csrf_token %}
+					<button type="submit" name="submit" class="btn-provider py-3 px-4 shadow">
+						<i class="fas fa-download mr-2"></i> Export to XLS Portal
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="mt-5 p-4 bg-light border-radius-20" style="border-left: 5px solid var(--accent-blue);">
+		<p class="mb-0 small text-muted">
+			<i class="fas fa-info-circle mr-2"></i> <strong>Note:</strong> All exported data is anonymized to comply
+			with healthcare privacy regulations. Patient identifiers (Fid) are preserved for system cross-referencing
+			only.
+		</p>
+	</div>
+</div>
+
+<style>
+	.icon-box-large {
+		width: 100px;
+		height: 100px;
+		background: linear-gradient(135deg, var(--soft-blue) 0%, var(--accent-blue) 100%);
+		border-radius: 30px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: white;
+		box-shadow: 0 10px 25px rgba(87, 108, 188, 0.3);
+		transform: rotate(-5deg);
+	}
+
+	.export-section {
+		background: rgba(25, 55, 109, 0.05);
+		border-radius: 25px;
+		border: 1px dashed var(--accent-blue);
+		transition: var(--transition);
+	}
+
+	.export-section:hover {
+		background: rgba(25, 55, 109, 0.08);
+		border-style: solid;
+	}
+
+	.border-radius-20 {
+		border-radius: 20px;
+	}
+</style>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'SProvider/design1.html' %}
+{% block researchblock %}
+<div class="content-card">
+	<h2 class="register-label mb-4"
+		style="color: var(--primary-deep); font-weight: 700; border-bottom: 3px solid var(--accent-blue); display: inline-block; padding-bottom: 8px;">
+		<i class="fas fa-microscope mr-2"></i> Clinical Detection Repository
+	</h2>
+
+	<div class="premium-table-container">
+		<table class="premium-table">
+			<thead>
+				<tr>
+					<th><i class="fas fa-hashtag mr-1"></i> Fid</th>
+					<th>Age</th>
+					<th>Sex</th>
+					<th>Chest Pain</th>
+					<th>BP/HR</th>
+					<th>ECG</th>
+					<th>MaxHR</th>
+					<th>Angina</th>
+					<th>Oldpeak</th>
+					<th>Slope</th>
+					<th>slp</th>
+					<th>caa</th>
+					<th>thall</th>
+					<th><i class="fas fa-stethoscope mr-1"></i> AI Prediction</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for object in list_objects %}
+				<tr>
+					<td style="font-weight: 700; color: var(--primary-blue);">{{object.Fid}}</td>
+					<td>{{object.Age_In_Days}}d</td>
+					<td>{{object.Sex}}</td>
+					<td>{{object.ChestPainType}}</td>
+					<td>{{object.RestingBP}}</td>
+					<td>{{object.RestingECG}}</td>
+					<td>{{object.MaxHR}}</td>
+					<td>{{object.ExerciseAngina}}</td>
+					<td>{{object.Oldpeak}}</td>
+					<td>{{object.ST_Slope}}</td>
+					<td>{{object.slp}}</td>
+					<td>{{object.caa}}</td>
+					<td>{{object.thall}}</td>
+					<td>
+						<span class="badge badge-primary px-3 py-2"
+							style="background: var(--primary-blue); border-radius: 8px;">
+							{{object.Prediction}}
+						</span>
+					</td>
+				</tr>
+				{% empty %}
+				<tr>
+					<td colspan="14" class="text-center py-5 no-users-message">
+						<i class="fas fa-database fa-2x mb-3 text-muted"></i>
+						<p>No telemetry data found in the prediction registers.</p>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}

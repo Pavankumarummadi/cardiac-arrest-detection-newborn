@@ -1,0 +1,177 @@
+{% extends 'RUser/design.html' %}
+{% block userblock %}
+<div class="content-card-blue mx-auto" style="max-width: 750px;">
+	<div class="profile-header-premium mb-5">
+		<div class="profile-avatar-box-white">
+			<i class="fas fa-user-shield"></i>
+		</div>
+		<div class="ml-4">
+			<h2 class="mb-1" style="color: white; font-weight: 800; letter-spacing: -1px;">Clinical Identity</h2>
+			<p class="mb-0" style="color: rgba(255,255,255,0.8);">Authorized Medical Intelligence User Identity</p>
+		</div>
+	</div>
+
+	<div class="profile-grid">
+		<!-- Main Identity -->
+		<div class="profile-item-glass mb-4">
+			<div class="field-icon-white"><i class="fas fa-fingerprint"></i></div>
+			<div class="field-content">
+				<span class="field-label-bold">System Username</span>
+				<span class="field-value-light">{{object.username}}</span>
+			</div>
+		</div>
+
+		<div class="profile-item-glass mb-4">
+			<div class="field-icon-white"><i class="fas fa-envelope-open-text"></i></div>
+			<div class="field-content">
+				<span class="field-label-bold">Official Communication Link</span>
+				<span class="field-value-light">{{object.email}}</span>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+				<div class="profile-item-glass mb-4">
+					<div class="field-icon-white"><i class="fas fa-phone-alt"></i></div>
+					<div class="field-content">
+						<span class="field-label-bold">Telemetry Contact</span>
+						<span class="field-value-light">{{object.phoneno}}</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="profile-item-glass mb-4">
+					<div class="field-icon-white"><i class="fas fa-globe-americas"></i></div>
+					<div class="field-content">
+						<span class="field-label-bold">Regional Origin</span>
+						<span class="field-value-light">{{object.country}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+				<div class="profile-item-glass mb-4">
+					<div class="field-icon-white"><i class="fas fa-map-marked-alt"></i></div>
+					<div class="field-content">
+						<span class="field-label-bold">Administrative Zone</span>
+						<span class="field-value-light">{{object.state}}</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="profile-item-glass mb-4">
+					<div class="field-icon-white"><i class="fas fa-city"></i></div>
+					<div class="field-content">
+						<span class="field-label-bold">Primary City</span>
+						<span class="field-value-light">{{object.city}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="p-3 mt-4 text-center rounded-lg"
+		style="background: rgba(255, 255, 255, 0.1); border: 1px dashed rgba(255, 255, 255, 0.3);">
+		<p class="mb-0 small" style="color: rgba(255,255,255,0.9);"><i class="fas fa-info-circle mr-2"></i> All medical
+			telemetry associated with this profile is encrypted and stored in compliance with standard clinical
+			protocols.</p>
+	</div>
+</div>
+
+<style>
+	.content-card-blue {
+		background: linear-gradient(135deg, var(--primary-deep) 0%, var(--primary-blue) 100%);
+		border-radius: 35px;
+		padding: 50px;
+		box-shadow: 0 20px 50px rgba(11, 36, 71, 0.4);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		animation: fadeInScale 0.8s ease-out;
+		color: white;
+	}
+
+	.profile-header-premium {
+		display: flex;
+		align-items: center;
+		padding-bottom: 30px;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
+	.profile-avatar-box-white {
+		width: 70px;
+		height: 70px;
+		background: rgba(255, 255, 255, 0.15);
+		backdrop-filter: blur(10px);
+		border-radius: 20px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: white;
+		font-size: 2rem;
+		border: 1px solid rgba(255, 255, 255, 0.2);
+	}
+
+	.profile-item-glass {
+		background: rgba(255, 255, 255, 0.08);
+		border-radius: 20px;
+		padding: 20px 25px;
+		display: flex;
+		align-items: center;
+		gap: 20px;
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		transition: var(--transition);
+	}
+
+	.profile-item-glass:hover {
+		transform: translateY(-5px);
+		background: rgba(255, 255, 255, 0.15);
+		border-color: rgba(255, 255, 255, 0.3);
+	}
+
+	.field-icon-white {
+		width: 45px;
+		height: 45px;
+		background: rgba(255, 255, 255, 0.1);
+		border-radius: 12px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 1.2rem;
+		color: white;
+	}
+
+	.field-content {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.field-label-bold {
+		font-size: 0.8rem;
+		text-transform: uppercase;
+		letter-spacing: 1.5px;
+		font-weight: 900;
+		color: white;
+		margin-bottom: 4px;
+	}
+
+	.field-value-light {
+		font-weight: 400;
+		color: rgba(255, 255, 255, 0.9);
+		font-size: 1.2rem;
+		letter-spacing: 0.5px;
+	}
+
+	@keyframes fadeInScale {
+		from {
+			opacity: 0;
+			transform: scale(0.95) translateY(30px);
+		}
+
+		to {
+			opacity: 1;
+			transform: scale(1) translateY(0);
+		}
+	}
+</style>
+{% endblock %}
