@@ -1,283 +1,224 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
-  <title>InfantHeart AI | Service Provider</title>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NeoCardio AI | Provider Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
+    *, *::before, *::after { box-sizing: border-box; }
     :root {
-      --primary-deep: #0B2447;
-      --primary-blue: #19376D;
-      --accent-blue: #576CBC;
-      --soft-blue: #A5D7E8;
-      --text-dark: #1A1A1A;
-      --text-light: #F8F9FA;
-      --glass-bg: rgba(255, 255, 255, 0.7);
-      --glass-border: rgba(255, 255, 255, 0.4);
-      --shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-      --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      --bg: #050d1a;
+      --panel: #0a1628;
+      --card: #0f1e35;
+      --border: rgba(245,158,11,0.15);
+      --teal: #00c8b4;
+      --teal-dim: rgba(0,200,180,0.1);
+      --amber: #f59e0b;
+      --amber-dim: rgba(245,158,11,0.1);
+      --text: #e8f0fe;
+      --muted: rgba(232,240,254,0.5);
+      --red: #ef4444;
+      --font: 'DM Sans', sans-serif;
+      --serif: 'DM Serif Display', serif;
+      --transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
     }
-
     body {
-      background-image: url("{% static 'newborn_bg.png' %}");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      font-family: 'Outfit', sans-serif;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
       margin: 0;
       min-height: 100vh;
-      color: var(--text-dark);
-      overflow-x: hidden;
       display: flex;
       flex-direction: column;
+      overflow-x: hidden;
     }
-
     body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(11, 36, 71, 0.4) 0%, rgba(25, 55, 109, 0.2) 100%);
-      z-index: -1;
+      content:'';
+      position:fixed; inset:0;
+      background-image:
+        linear-gradient(rgba(245,158,11,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245,158,11,0.025) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index:0; pointer-events:none;
     }
-
-    @keyframes fadeInScale {
-      from {
-        opacity: 0;
-        transform: scale(0.98) translateY(20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
-    }
-
-    @keyframes navSlide {
-      from {
-        transform: translateY(-100%);
-      }
-
-      to {
-        transform: translateY(0);
-      }
-    }
-
-    .header-container {
-      padding: 50px 20px;
-      text-align: center;
-      animation: fadeInScale 0.8s ease-out;
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(8px);
-      border-bottom: 2px solid var(--glass-border);
-    }
-
-    h1 {
-      color: var(--text-light);
-      font-weight: 700;
-      font-size: 2.5rem;
-      max-width: 1100px;
-      margin: 0 auto;
-      line-height: 1.3;
-      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    }
-
-    .topnav {
-      background: var(--primary-deep);
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      box-shadow: var(--shadow);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      animation: navSlide 0.6s ease-out;
-      padding: 5px 20px;
-    }
-
-    .topnav a {
-      color: var(--text-light);
-      padding: 15px 20px;
-      text-decoration: none;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      transition: var(--transition);
-      position: relative;
+    /* TOP HEADER */
+    .top-header {
+      background: linear-gradient(90deg, #071224 0%, #0d1e38 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: space-between;
+      height: 70px;
+      position: sticky; top: 0; z-index: 1000;
+      animation: slideDown 0.5s ease-out;
     }
-
-    .topnav a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      width: 0;
-      height: 4px;
-      background: var(--soft-blue);
+    @keyframes slideDown { from{transform:translateY(-100%)} to{transform:translateY(0)} }
+    .header-brand { display: flex; align-items: center; gap: 14px; }
+    .header-icon {
+      width: 40px; height: 40px;
+      background: var(--amber-dim);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--amber); font-size: 1rem;
+    }
+    .header-title { font-family: var(--serif); font-size: 1.3rem; color: var(--text); }
+    .header-title span { color: var(--amber); }
+    .header-badge {
+      font-size: 0.62rem;
+      background: var(--amber-dim);
+      color: var(--amber);
+      border: 1px solid var(--border);
+      padding: 2px 8px; border-radius: 20px;
+      letter-spacing: 1px; margin-left: 8px;
+    }
+    /* NAV */
+    .main-nav { display: flex; align-items: center; gap: 3px; flex-wrap: wrap; }
+    .nav-link-item {
+      display: flex; align-items: center; gap: 7px;
+      padding: 7px 12px;
+      border-radius: 8px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.78rem; font-weight: 500;
       transition: var(--transition);
-      transform: translateX(-50%);
-      border-radius: 4px 4px 0 0;
     }
-
-    .topnav a:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: var(--soft-blue);
+    .nav-link-item:hover {
+      background: var(--amber-dim);
+      color: var(--amber);
       text-decoration: none;
     }
-
-    .topnav a:hover::after {
-      width: 80%;
+    .nav-link-item i { font-size: 0.82rem; color: var(--amber); }
+    .nav-logout { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.15); color: #ef4444; }
+    .nav-logout:hover { background: rgba(239,68,68,0.15); color: #ef4444; }
+    .nav-logout i { color: #ef4444; }
+    /* BANNER */
+    .page-banner {
+      background: linear-gradient(135deg, #071224 0%, #0d1e38 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 30px 50px;
+      position: relative; overflow: hidden;
     }
-
-    .topnav a.active {
-      background: var(--primary-blue);
-      color: var(--soft-blue);
+    .page-banner::after {
+      content:''; position:absolute; right:-50px; top:-50px;
+      width:300px; height:300px; border-radius:50%;
+      background: radial-gradient(circle, rgba(245,158,11,0.07) 0%, transparent 70%);
     }
-
-    .mainholder {
-      max-width: 1450px;
-      width: 98%;
-      margin: 40px auto;
-      padding: 40px;
-      background: var(--glass-bg);
-      backdrop-filter: blur(15px);
-      border-radius: 35px;
-      border: 1px solid var(--glass-border);
-      box-shadow: var(--shadow);
-      animation: fadeInScale 1s ease-out;
-      flex-grow: 1;
-      margin-bottom: 60px;
+    .page-banner h1 {
+      font-family: var(--serif); font-size: 1.8rem; color: var(--text); margin: 0;
     }
-
-    /* Common Card Style */
+    .page-banner p { color: var(--muted); font-size: 0.85rem; margin: 5px 0 0; }
+    .provider-badge-top {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.7rem; font-weight: 700;
+      color: var(--amber);
+      background: var(--amber-dim);
+      border: 1px solid var(--border);
+      padding: 4px 10px; border-radius: 20px;
+      letter-spacing: 1px; margin-top: 12px;
+    }
+    /* MAIN CONTENT */
+    .main-content {
+      flex: 1;
+      padding: 40px 50px;
+      position: relative; z-index: 1;
+      animation: fadeUp 0.6s ease-out 0.1s both;
+    }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    /* CARD */
     .content-card {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 25px;
-      padding: 35px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-      border: 1px solid #E0E0E0;
-      margin-bottom: 40px;
-      transition: var(--transition);
-    }
-
-    .content-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Premium Table Styling */
-    .premium-table-container {
-      margin-top: 25px;
-      overflow-x: auto;
+      background: var(--panel);
+      border: 1px solid var(--border);
       border-radius: 20px;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      padding: 35px;
+      margin-bottom: 30px;
     }
-
+    /* TABLE */
+    .premium-table-container {
+      overflow-x: auto;
+      border-radius: 14px;
+      margin-top: 20px;
+    }
     .premium-table {
       width: 100%;
       border-collapse: separate;
       border-spacing: 0;
     }
-
     .premium-table th {
-      background-color: var(--primary-blue);
-      color: white;
-      padding: 18px 15px;
-      text-align: left;
-      font-weight: 600;
+      background: rgba(245,158,11,0.1);
+      color: var(--amber);
+      padding: 16px 18px;
+      font-size: 0.72rem;
+      font-weight: 700;
       text-transform: uppercase;
-      font-size: 11px;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
+      border-bottom: 1px solid var(--border);
     }
-
     .premium-table td {
-      padding: 15px;
-      border-bottom: 1px solid #EDEDED;
-      background-color: white;
-      color: var(--text-dark);
-      font-size: 14px;
+      padding: 15px 18px;
+      border-bottom: 1px solid rgba(245,158,11,0.06);
+      background: var(--card);
+      color: var(--text);
+      font-size: 0.88rem;
       transition: var(--transition);
     }
-
-    .premium-table tr:last-child td:first-child {
-      border-bottom-left-radius: 20px;
-    }
-
-    .premium-table tr:last-child td:last-child {
-      border-bottom-right-radius: 20px;
-    }
-
     .premium-table tr:hover td {
-      background-color: #F0F4FF;
-      color: var(--primary-deep);
+      background: #12233f;
+      color: var(--text);
     }
-
-    .footer {
-      margin-top: auto;
-      padding: 40px;
+    .premium-table tr:last-child td { border-bottom: none; }
+    /* FOOTER */
+    .main-footer {
+      background: #071224;
+      border-top: 1px solid var(--border);
+      padding: 18px 50px;
       text-align: center;
-      color: var(--text-light);
-      background: rgba(11, 36, 71, 0.9);
-      width: 100%;
-      backdrop-filter: blur(10px);
+      font-size: 0.76rem;
+      color: var(--muted);
+      position: relative; z-index: 1;
     }
-
-    .btn-provider {
-      background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-deep) 100%);
-      color: white !important;
-      padding: 10px 20px;
-      border-radius: 10px;
-      font-weight: 600;
-      transition: var(--transition);
-      border: none;
-    }
-
-    .btn-provider:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.2);
-    }
+    .main-footer span { color: var(--amber); }
   </style>
 </head>
-
 <body>
+  <header class="top-header">
+    <div class="header-brand">
+      <div class="header-icon"><i class="fas fa-user-md"></i></div>
+      <div>
+        <span class="header-title">Neo<span>Cardio</span> AI</span>
+        <span class="header-badge">PROVIDER</span>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <a href="{% url 'train_model' %}" class="nav-link-item"><i class="fas fa-microchip"></i> Train Model</a>
+      <a href="{% url 'likeschart' 'bar' %}" class="nav-link-item"><i class="fas fa-chart-bar"></i> Accuracy</a>
+      <a href="{% url 'charts1' 'line' %}" class="nav-link-item"><i class="fas fa-chart-line"></i> Results</a>
+      <a href="{% url 'View_Prediction_Of_Cardiac_Arrest_Type' %}" class="nav-link-item"><i class="fas fa-list-alt"></i> Predictions</a>
+      <a href="{% url 'View_Prediction_Of_Cardiac_Arrest_Type_Ratio' %}" class="nav-link-item"><i class="fas fa-percentage"></i> Ratio</a>
+      <a href="{% url 'Download_Predicted_DataSets' %}" class="nav-link-item"><i class="fas fa-download"></i> Datasets</a>
+      <a href="{% url 'charts' 'line' %}" class="nav-link-item"><i class="fas fa-project-diagram"></i> System</a>
+      <a href="{% url 'View_Remote_Users' %}" class="nav-link-item"><i class="fas fa-users"></i> Users</a>
+      <a href="{% url 'login' %}" class="nav-link-item nav-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </nav>
+  </header>
 
-  <div class="header-container">
-    <h1>InfantHeart AI Provider Dashboard</h1>
-    <p style="color: rgba(255,255,255,0.8); font-size: 1.1rem; margin-top: 10px;">Clinical Management & Statistical
-      Analytics</p>
+  <div class="page-banner">
+    <h1>Clinical Management Dashboard</h1>
+    <p>Statistical Analytics & ML Model Management for Neonatal Cardiac Detection</p>
+    <div class="provider-badge-top"><i class="fas fa-shield-alt"></i> ADMIN ACCESS</div>
   </div>
 
-  <div class="topnav">
-    <a href="{% url 'train_model' %}"><i class="fas fa-microchip"></i> Train & Test</a>
-    <a href="{% url 'likeschart' 'bar' %}"><i class="fas fa-chart-bar"></i> Accuracy Bar</a>
-    <a href="{% url 'charts1' 'line' %}"><i class="fas fa-chart-line"></i> Results</a>
-    <a href="{% url 'View_Prediction_Of_Cardiac_Arrest_Type' %}"><i class="fas fa-list-alt"></i> Predictions</a>
-    <a href="{% url 'View_Prediction_Of_Cardiac_Arrest_Type_Ratio' %}"><i class="fas fa-percentage"></i> Ratio</a>
-    <a href="{% url 'Download_Predicted_DataSets' %}"><i class="fas fa-download"></i> Datasets</a>
-    <a href="{% url 'charts' 'line' %}"><i class="fas fa-project-diagram"></i> System Ratio</a>
-    <a href="{% url 'View_Remote_Users' %}"><i class="fas fa-users"></i> Users</a>
-    <a href="{% url 'login' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  <div class="main-content">
+    {% block researchblock %}{% endblock %}
   </div>
 
-  <div class="mainholder">
-    {% block researchblock %}
-    {% endblock %}
-  </div>
-
-  <div class="footer">
-    <p>&copy; 2026 InfantHeart AI Provider System &bull; Advanced Medical Intelligence Terminal</p>
-  </div>
+  <footer class="main-footer">
+    &copy; 2026 <span>NeoCardio AI Provider System</span> &bull; Advanced Medical Intelligence Terminal
+  </footer>
 </body>
-
 </html>
